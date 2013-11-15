@@ -1,26 +1,43 @@
 
 import pygame, os
 
-root = '..'
-sound_file = os.path.join(root, 'data', 'sounds')
-image_file = os.path.join(root, 'data', 'images')
+class Data:
+    def __init__(self, root):
+        self.sound_file = os.path.join(root, 'data', 'sounds')
+        self.image_file = os.path.join(root, 'data', 'images')
+
+        self.images = {}
+        self.sounds = {}
     
-def loadSound(file):
-    file = os.path.join(sound_file, file)
-    sound = pygame.mixer.Sound(file)
-    return sound
+    def getSound(self, file):
+        sound = None
+        if file in self.sounds:
+            sound = self.sounds[file]
+        else:
+            file = os.path.join(self.sound_file, file)
+            sound = pygame.mixer.Sound(file)
+            self.sounds[file] = sound
+        return sound
 
-def startMusic(file):
-    pygame.mixer.music.load(os.path.join(sound_file, file))
-    pygame.mixer.music.play(-1)
+    def getImage(self, file):
+        image = None
+        if file in self.images:
+            image = self.images[file]
+        else:
+            file = os.path.join(self.image_file, file)
+            image = pygame.image.load(file)#.convert()
+            self.images[file] = image
+        return image
 
-def pauseMusic():
-    pygame.mixer.music.pause()
+    def startMusic(self, file):
+        pygame.mixer.music.load(os.path.join(sound_file, file))
+        pygame.mixer.music.play(-1)
 
-def unpauseMusic():
-    pygame.mixer.music.unpause()
+    def pauseMusic(self):
+        pygame.mixer.music.pause()
 
-def loadImage(file):
-    file = os.path.join(image_file, file)
-    image = pygame.image.load(file)#.convert()
-    return image
+    def unpauseMusic(self):
+        pygame.mixer.music.unpause()
+
+# Gobal variable acts as Singleton
+GameData = Data('..')
