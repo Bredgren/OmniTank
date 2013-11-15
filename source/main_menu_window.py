@@ -10,21 +10,32 @@ HEIGHT = 768
 class MainWindow(Window):
     def __init__(self, size, caption=None):
         Window.__init__(self, size, "OmniTank Menu")
-        self.background = data.load_image("main_menu.png")
+        self.background = data.loadImage("main_menu.png")
+
+        self.buttons = pygame.sprite.LayeredDirty()
+        button_image = data.loadImage("selection_outline.png")
+        self.start_button = Button((367, 311), button_image, self.buttons)
+        self.instructions_button = Button((367, 363), button_image, self.buttons)
+        self.highscores_button = Button((367, 413), button_image, self.buttons)
+        self.quit_button = Button((367, 465), button_image, self.buttons)
 
         self.screen.blit(self.background, (0, 0))
         pygame.display.flip()
-
-    def update(self, time_passed):
-        pass
 
     def handleInput(self):
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.running = False
 
+    def clear(self):
+        self.buttons.clear(self.screen, self.background)
+
+    def update(self, time_passed):
+        self.buttons.update()
+        
     def draw(self):
-        pass
+        dirty = self.buttons.draw(self.screen)
+        pygame.display.update(dirty)
 
 if __name__ == '__main__':
     pygame.init()
