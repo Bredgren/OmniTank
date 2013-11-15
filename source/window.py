@@ -11,6 +11,7 @@ class Window:
         self.clock = pygame.time.Clock()
         self.fps = 60
         self.running = True
+        self.buttons = pygame.sprite.LayeredDirty()
 
     def run(self):
         while self.running:
@@ -31,5 +32,11 @@ class Window:
 
     def draw(self):
         pass
+
+    def selectedButton(self):
+        for button in self.buttons:
+            if button.visible:
+                return button
+        return None
 
 
