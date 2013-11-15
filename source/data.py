@@ -1,7 +1,8 @@
 
 import pygame, os
 
-"""A class for managing the games sound and image assets."""
+"""A class for managing the games sound and image assets. It can be used to load
+data when it is fist needed or to load things ahead of time."""
 class Data:
     def __init__(self, root):
         self.sound_file = os.path.join(root, 'data', 'sounds')
@@ -48,6 +49,14 @@ class Data:
             self.images[file] = image
             return image
         return self.image(file)
+
+    def unloadSound(self, file):
+        if file in self.sounds:
+            del self.sounds[file]
+
+    def unloadImageself, file):
+        if file in self.images:
+            del self.images[file]
 
     def startMusic(self, file):
         pygame.mixer.music.load(os.path.join(self.sound_file, file))
