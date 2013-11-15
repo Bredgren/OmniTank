@@ -2,6 +2,7 @@
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 
+ICON_IMG = 'icon.png'
 MAIN_BGD_IMG = 'main_menu.png'
 BUTTON_IMG = 'selection_outline.png'
 

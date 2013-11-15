@@ -1,13 +1,13 @@
 
 import pygame
+from data import GameData
+from constants import *
 
 class Window:
     def __init__(self, size, caption):
         self.screen = pygame.display.set_mode(size)
         pygame.display.set_caption(caption)
-##        icon_img = os.path.join("images", "icon.png")
-##        icon = pygame.image.load(icon_img)
-##        pygame.display.set_icon(icon)
+        pygame.display.set_icon(GameData.image(ICON_IMG))
         self.clock = pygame.time.Clock()
         self.fps = 60
         self.running = True
@@ -20,6 +20,7 @@ class Window:
             self.clear()
             self.update(time_passed)
             self.draw()
+        self.cleanup()
 
     def clear(self):
         pass
@@ -31,6 +32,9 @@ class Window:
         pass
 
     def draw(self):
+        pass
+
+    def cleanup(self):
         pass
 
     def selectedButton(self):
