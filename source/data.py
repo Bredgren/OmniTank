@@ -1,12 +1,12 @@
 
-import pygame, os
+import pygame, os, constants
 
 """A class for managing the games sound and image assets. It can be used to load
 data when it is fist needed or to load things ahead of time."""
 class Data:
-    def __init__(self, root):
-        self.sound_file = os.path.join(root, 'data', 'sounds')
-        self.image_file = os.path.join(root, 'data', 'images')
+    def __init__(self):
+        self.sound_file = constants.SOUND_FILE
+        self.image_file = constants.IMAGE_FILE
 
         self.images = {}
         self.sounds = {}
@@ -54,7 +54,7 @@ class Data:
         if file in self.sounds:
             del self.sounds[file]
 
-    def unloadImageself, file):
+    def unloadImage(self, file):
         if file in self.images:
             del self.images[file]
 
@@ -79,4 +79,4 @@ class Data:
         pygame.mixer.music.set_volume(vol)
 
 # Gobal variable acts as Singleton
-GameData = Data('..')
+GameData = Data()
