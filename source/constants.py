@@ -17,3 +17,4 @@ from os import path
 
 SOUND_FILE = path.join('..', 'data', 'sounds')
 IMAGE_FILE = path.join('..', 'data', 'images')
+SCORES_DB = path.join('..', 'data', 'local_scores.db')
