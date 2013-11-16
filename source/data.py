@@ -1,8 +1,8 @@
 
 import pygame, os, constants
 
-"""A class for managing the games sound and image assets. It can be used to load
-data when it is fist needed or to load things ahead of time."""
+""" A class for managing the games sound and image assets. It can be used to load
+data when it is fist needed or to load things ahead of time. """
 class Data:
     def __init__(self):
         self.sound_file = constants.SOUND_FILE
@@ -18,7 +18,7 @@ class Data:
     def playSound(self, file):
         sound = None
         if file in self.sounds:
-            sound = self.sounds
+            sound = self.sounds[file]
         else:
             sound = self.loadSound(file)
         pygame.mixer.stop()
@@ -36,16 +36,16 @@ class Data:
     
     def loadSound(self, file):
         if file not in self.sounds:
-            file = os.path.join(self.sound_file, file)
-            sound = pygame.mixer.Sound(file)
+            source = os.path.join(self.sound_file, file)
+            sound = pygame.mixer.Sound(source)
             self.sounds[file] = sound
             return sound
         return self.sound(file)
 
     def loadImage(self, file):
         if file not in self.images:
-            file = os.path.join(self.image_file, file)
-            image = pygame.image.load(file)#.convert()
+            source = os.path.join(self.image_file, file)
+            image = pygame.image.load(source)#.convert()
             self.images[file] = image
             return image
         return self.image(file)

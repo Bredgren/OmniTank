@@ -6,6 +6,7 @@ from data import GameData
 from window import Window
 from button import Button
 
+#TODO: external database for global high scores (how to securely access?)
 class HighScoresWindow(Window):
     def __init__(self, size, caption=None, win=None):
         Window.__init__(self, size, caption, win)
