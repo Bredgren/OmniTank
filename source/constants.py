@@ -3,9 +3,10 @@ SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 
 ICON_IMG = 'icon.png'
-MAIN_BGD_IMG = 'main_menu.png'
 BUTTON_IMG = 'selection_outline.png'
+MAIN_BGD_IMG = 'main_menu.png'
 INSTRUCTIONS_BGD_IMG = 'instructions.png'
+HIGH_SCORES_BGD_IMG = 'high_scores.png'
 
 BGD_MUSIC = 'Mechanolith.mp3'
 

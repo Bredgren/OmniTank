@@ -6,13 +6,13 @@ from data import GameData
 from window import Window
 from button import Button
 
-class InstructionsWindow(Window):
+class HighScoresWindow(Window):
     def __init__(self, size, caption=None, win=None):
         Window.__init__(self, size, caption, win)
-        self.background = GameData.image(INSTRUCTIONS_BGD_IMG)
+        self.background = GameData.image(HIGH_SCORES_BGD_IMG)
 
         button_image = GameData.image(BUTTON_IMG)
-        self.main_menu_button = Button((709, 701), button_image, self.buttons)
+        self.main_menu_button = Button((368, 694), button_image, self.buttons)
 
     def setup(self):
         self.screen.blit(self.background, (0, 0))
@@ -31,7 +31,7 @@ class InstructionsWindow(Window):
 if __name__ == '__main__':
     pygame.init()
     
-    main = InstructionsWindow((SCREEN_WIDTH, SCREEN_HEIGHT), 'OmniTank Instructions - Standalone')
+    main = HighScoresWindow((SCREEN_WIDTH, SCREEN_HEIGHT), 'OmniTank High Scores - Standalone')
     main.run()
 
     pygame.quit()

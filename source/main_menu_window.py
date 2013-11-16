@@ -6,7 +6,7 @@ from data import GameData
 from window import Window
 from button import Button
 from instructions_window import InstructionsWindow
-#from high_scores_window import HighScoresWindow
+from high_scores_window import HighScoresWindow
 #from color_choice_window import ColorChoiceWindow
 
 class MainWindow(Window):
@@ -21,7 +21,7 @@ class MainWindow(Window):
         self.quit_button = Button((367, 465), button_image, self.buttons)
 
         self.instructions_window = InstructionsWindow(size, 'OmniTank Instructions', self)
-        #self.high_scores_window = HighScoresWindow(size, 'OmniTank High Scores', self)
+        self.high_scores_window = HighScoresWindow(size, 'OmniTank High Scores', self)
         #self.color_choice_window = ColorChoiceWindow(size, 'OmniTank Color Choice', self)
 
         GameData.musicVolumeIs(0.5)
@@ -41,10 +41,11 @@ class MainWindow(Window):
                 self.delay() # Don't switch menus instantly
                 if selection == self.start_button:
                     #self.color_choice_window.run()
+                    pass
                 elif selection == self.instructions_button:
                     self.instructions_window.run()
                 elif selection == self.highscores_button:
-                    #self.high_scores_window.run()
+                    self.high_scores_window.run()
                 elif selection == self.quit_button:
                     self.running = False
                 # Must reset caption if another window changed it
