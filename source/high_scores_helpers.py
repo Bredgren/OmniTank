@@ -9,6 +9,7 @@ class Score:
         self.level = level
         self.date = date
 
+#TODO: external database for global high scores (how to securely access?)
 class HighScores:
     def __init__(self):
         # connect to database or set it up if it doesn't exist

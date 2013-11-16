@@ -2,7 +2,7 @@
 import pygame
 
 class Button(pygame.sprite.DirtySprite):
-    def __init__(self, pos, image, container=None):
+    def __init__(self, pos, image, container=()):
         pygame.sprite.DirtySprite.__init__(self, container)
         self.image = image
         self.rect = self.image.get_rect(topleft=pos)
