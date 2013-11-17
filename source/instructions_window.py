@@ -14,7 +14,7 @@ class InstructionsWindow(Window):
         button_image = GameData.image(BUTTON_IMG)
         self.main_menu_button = Button((709, 701), button_image, self.buttons)
 
-    def setup(self):
+    def setup(self, args=()):
         self.screen.blit(self.background, (0, 0))
         pygame.display.flip()
 

@@ -20,8 +20,8 @@ class Window:
         self.running = True
         self.buttons = pygame.sprite.LayeredDirty()
 
-    def run(self):
-        self._setup()
+    def run(self, *args):
+        self._setup(args)
         while self.running:
             time_passed = self.clock.tick(self.fps)
             self._handleInput()
@@ -30,7 +30,7 @@ class Window:
             self._draw()
         self._cleanup()
 
-    def setup(self):
+    def setup(self, args=()):
         pass
 
     def handleEvent(self, event):
@@ -57,10 +57,10 @@ class Window:
     def delay(self):
         pygame.time.wait(200)
 
-    def _setup(self):
+    def _setup(self, args=()):
         self.running = True
         pygame.display.set_caption(self.caption)
-        self.setup()
+        self.setup(args)
 
     def _handleInput(self):
         for event in pygame.event.get():

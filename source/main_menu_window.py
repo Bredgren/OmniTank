@@ -24,10 +24,10 @@ class MainWindow(Window):
         self.high_scores_window = HighScoresWindow(size, 'OmniTank High Scores', self)
         #self.color_choice_window = ColorChoiceWindow(size, 'OmniTank Color Choice', self)
 
-        GameData.musicVolumeIs(0.5)
+        GameData.setMusicVolume(0.5)
         GameData.startMusic(BGD_MUSIC)
 
-    def setup(self):
+    def setup(self, args=()):
         self.screen.blit(self.background, (0, 0))
         pygame.display.flip()
 
@@ -40,12 +40,16 @@ class MainWindow(Window):
                 selection = self.selectedButton()
                 self.delay() # Don't switch menus instantly
                 if selection == self.start_button:
-                    #self.color_choice_window.run()
+                    #color = self.color_choice_window.run()
+                    #level, points = self.game_window.run(color)
+                    #self.high_scores_window.run(level, points)
                     pass
                 elif selection == self.instructions_button:
                     self.instructions_window.run()
                 elif selection == self.highscores_button:
-                    self.high_scores_window.run()
+                    temp_level = 19 #TODO: remove when done testing
+                    temp_points = 2
+                    self.high_scores_window.run(temp_level, temp_points)
                 elif selection == self.quit_button:
                     self.running = False
                 # Must reset caption if another window changed it
