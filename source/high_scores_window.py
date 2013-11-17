@@ -60,6 +60,7 @@ class HighScoresWindow(Window):
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 self.running = False
+                GameData.playSound(CLICK_SFX)
         elif event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 selection = self.selectedButton()
