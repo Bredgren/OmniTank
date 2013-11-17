@@ -9,6 +9,7 @@ BUTTON_IMG = 'selection_outline.png'
 MAIN_BGD_IMG = 'main_menu.png'
 INSTRUCTIONS_BGD_IMG = 'instructions.png'
 HIGH_SCORES_BGD_IMG = 'high_scores.png'
+GET_NAME_BGD_IMG = 'get_name.png'
 
 BGD_COLOR = pygame.Color(192, 192, 192)
 DEFAULT_FONT_COLOR = pygame.Color(0, 148, 255)
@@ -61,3 +62,5 @@ HS_ENTRY_MAX_NAME_LENGTH = 10
 HS_ENTRY_LEVEL_LENGTH = 2
 HS_ENTRY_POINTS_LENGTH = 12
 
+# Get name page
+GN_OK_BTN_POS = (500, 500)

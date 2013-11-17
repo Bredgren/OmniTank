@@ -6,6 +6,7 @@ from data import GameData
 from window import Window
 from button import Button
 from high_scores_helpers import HighScores
+from get_name_window import GetNameWindow
 
 class HighScoresWindow(Window):
     def __init__(self, size, caption=None, win=None):
@@ -22,13 +23,17 @@ class HighScoresWindow(Window):
 
         self.local_entry_container = pygame.sprite.LayeredDirty()
 
-    """ Expects an optional new score as first paramater of args """
+        self.get_name_window = GetNameWindow(size, caption + " - Get Name", self)
+
+    """ Expects optional level and points of a desired new score as first
+        paramaters of args """
     def setup(self, args=()):
         new_local_rank = 0
         if len(args) > 0:
             level = args[0]
             points = args[1]
-            #name = self.name_getter.run()
+            name = self.get_name_window.run()
+            print "name:", name
             #new_local_rank, new_global_rank = HighScores.newScore(name, level, points)
             
         self.screen.blit(self.background, (0, 0))

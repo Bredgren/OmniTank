@@ -1,5 +1,5 @@
 
-import pygame
+import pygame, sys
 from pygame.locals import *
 from constants import *
 from data import GameData
@@ -19,6 +19,9 @@ class Window:
         self.fps = FPS
         self.running = True
         self.buttons = pygame.sprite.LayeredDirty()
+
+        # This is returned by the run method
+        self.return_data = None
 
     """ Called once before game loop """
     def setup(self, args=()):
@@ -54,6 +57,7 @@ class Window:
             self._update(time_passed)
             self._draw()
         self._cleanup()
+        return self.return_data
 
     """ Returns the first button that the mouse is over, or None """
     def selectedButton(self):
@@ -73,7 +77,7 @@ class Window:
     def _handleInput(self):
         for event in pygame.event.get():
             if event.type == QUIT:
-                self.running = False
+                sys.exit(0)
             elif event.type == KEYDOWN:
                 if event.key == K_m:
                     GameData.toggleMusic()
