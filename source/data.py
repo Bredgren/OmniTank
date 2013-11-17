@@ -75,7 +75,7 @@ class Data:
             self.pauseMusic()
         self._music_paused = not self._music_paused
 
-    def musicVolumeIs(self, vol):
+    def setMusicVolume(self, vol):
         pygame.mixer.music.set_volume(vol)
 
 # Gobal variable acts as Singleton
