@@ -62,7 +62,7 @@ class HighScoresWindow(Window):
                 self.running = False
                 GameData.playSound(CLICK_SFX)
         elif event.type == MOUSEBUTTONDOWN:
-            if event.button == 1:
+            if event.button == LEFT_MOUSE:
                 selection = self.selectedButton()
                 if selection == self.main_menu_button:
                     self.running = False
@@ -145,11 +145,6 @@ class Entry(pygame.sprite.DirtySprite):
         text = self.get_text(self.score)
         self.image = self.FONT.render(text, True, self.color)
         self.dirty = 1
-
-    def setName(self, new_name):
-        HighScores.updateName(new_name, self.score)
-        self.score.name = new_name
-        self.updateImage()
 
 def getEntryPos(num):
     x = HS_ENTRY_TOP[0] + HS_ENTRY_OFFSET[0]

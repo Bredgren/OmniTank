@@ -16,10 +16,35 @@ class Window:
         self.caption = caption
         pygame.display.set_icon(GameData.image(ICON_IMG))
         
-        self.fps = 60
+        self.fps = FPS
         self.running = True
         self.buttons = pygame.sprite.LayeredDirty()
 
+    """ Called once before game loop """
+    def setup(self, args=()):
+        pass
+
+    """ Called for each event each time through the game loop """
+    def handleEvent(self, event):
+        pass
+
+    """ Called before update to clear screen items that need it """
+    def clear(self):
+        pass
+
+    """ Called once per pass through game loop to update game items that need it """
+    def update(self, time_passed):
+        pass
+
+    """ Called last each time through the game loop to draw items to the screen """
+    def draw(self):
+        return [] #important to return a list
+
+    """ Called once after the game loop terminates """
+    def cleanup(self):
+        pass
+
+    """ Starts the game loop for this window """
     def run(self, *args):
         self._setup(args)
         while self.running:
@@ -30,32 +55,15 @@ class Window:
             self._draw()
         self._cleanup()
 
-    def setup(self, args=()):
-        pass
-
-    def handleEvent(self, event):
-        pass
-
-    def clear(self):
-        pass
-
-    def update(self, time_passed):
-        pass
-
-    def draw(self):
-        return [] #important to return a list
-
-    def cleanup(self):
-        pass
-
+    """ Returns the first button that the mouse is over, or None """
     def selectedButton(self):
         for button in self.buttons:
-            if button.visible:
+            if button.visible: # buttons are only visible when moused over
                 return button
         return None
 
     def delay(self):
-        pygame.time.wait(200)
+        pygame.time.wait(WAIT_TIME)
 
     def _setup(self, args=()):
         self.running = True
@@ -70,7 +78,7 @@ class Window:
                 if event.key == K_m:
                     GameData.toggleMusic()
             elif event.type == MOUSEBUTTONDOWN:
-                if event.button == 1 and self.selectedButton():
+                if event.button == LEFT_MOUSE and self.selectedButton():
                     GameData.playSound(CLICK_SFX)
             self.handleEvent(event)
 

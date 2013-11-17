@@ -15,16 +15,16 @@ class MainWindow(Window):
         self.background = GameData.image(MAIN_BGD_IMG)
 
         button_image = GameData.image(BUTTON_IMG)
-        self.start_button = Button((367, 311), button_image, self.buttons)
-        self.instructions_button = Button((367, 363), button_image, self.buttons)
-        self.highscores_button = Button((367, 413), button_image, self.buttons)
-        self.quit_button = Button((367, 465), button_image, self.buttons)
+        self.start_button = Button(MM_START_BTN_POS, button_image, self.buttons)
+        self.instructions_button = Button(MM_INSTUC_BTN_POS, button_image, self.buttons)
+        self.highscores_button = Button(MM_SCORES_BTN_POS, button_image, self.buttons)
+        self.quit_button = Button(MM_QUIT_BTN_POS, button_image, self.buttons)
 
         self.instructions_window = InstructionsWindow(size, 'OmniTank Instructions', self)
         self.high_scores_window = HighScoresWindow(size, 'OmniTank High Scores', self)
         #self.color_choice_window = ColorChoiceWindow(size, 'OmniTank Color Choice', self)
 
-        GameData.setMusicVolume(0.5)
+        GameData.setMusicVolume(MUSIC_VOLUME)
         GameData.startMusic(BGD_MUSIC)
 
     def setup(self, args=()):
@@ -37,7 +37,7 @@ class MainWindow(Window):
                 self.running = False
                 GameData.playSound(CLICK_SFX)
         elif event.type == MOUSEBUTTONDOWN:
-            if event.button == 1:
+            if event.button == LEFT_MOUSE:
                 selection = self.selectedButton()
                 self.delay() # Don't switch menus instantly
                 if selection == self.start_button:

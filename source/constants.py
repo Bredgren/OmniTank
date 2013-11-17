@@ -29,8 +29,20 @@ SCORES_DB = path.join('..', 'data', 'local_scores.db')
 ### Magic numbers
 # General
 BTN_SIZE = (290, 40)
+FPS = 60
+WAIT_TIME = 200 #ms
+MUSIC_VOLUME = 0.8
+LEFT_MOUSE = 1
+
 # Main menu
+MM_START_BTN_POS = (367, 311)
+MM_INSTUC_BTN_POS = (367, 363)
+MM_SCORES_BTN_POS = (367, 413)
+MM_QUIT_BTN_POS = (367, 465)
+
 # Instructions page
+I_RETURN_BTN_POS = (709, 701)
+
 # High score page
 HS_RETURN_BTN_POS = (368, 694)
 HS_LOCAL_BTN_POS = (217, 58)
@@ -44,7 +56,6 @@ HS_ENTRY_TOP = (217, 108)
 HS_ENTRY_GAP = 10
 HS_ENTRY_OFFSET = (8, 7)
 HS_ENTRY_SIZE = (590, BTN_SIZE[1])
-
 HS_ENTRY_NUM_LENGTH = 4
 HS_ENTRY_MAX_NAME_LENGTH = 10
 HS_ENTRY_LEVEL_LENGTH = 2

@@ -12,7 +12,7 @@ class InstructionsWindow(Window):
         self.background = GameData.image(INSTRUCTIONS_BGD_IMG)
 
         button_image = GameData.image(BUTTON_IMG)
-        self.main_menu_button = Button((709, 701), button_image, self.buttons)
+        self.main_menu_button = Button(I_RETURN_BTN_POS, button_image, self.buttons)
 
     def setup(self, args=()):
         self.screen.blit(self.background, (0, 0))
@@ -24,7 +24,7 @@ class InstructionsWindow(Window):
                 self.running = False
                 GameData.playSound(CLICK_SFX)
         elif event.type == MOUSEBUTTONDOWN:
-            if event.button == 1:
+            if event.button == LEFT_MOUSE:
                 selection = self.selectedButton()
                 if selection == self.main_menu_button:
                     self.running = False
