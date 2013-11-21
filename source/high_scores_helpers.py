@@ -46,36 +46,31 @@ class HighScores:
     def _connectdb(self):
         self.database = sqlite3.connect(SCORES_DB)
         self.cursor = self.database.cursor()
+        self.cursor.row_factory = sqlite3.Row
 
     def __del__(self):
         self.database.close()
 
     """ Returns the rank of the givien score, or 0 if the score doesn't exist """
     def getLocalRank(self, score):
-        scores = []
         rows = self.cursor.execute('''
             SELECT *
             FROM scores
             ORDER BY points DESC''')
-        for row in rows:
-            scores.append(Score(row[0], row[1], row[2], row[3]))
-
+        
+        scores = self._getScoresFromRows(scores)
         if score not in scores:
             return 0
-        
         return scores.index(score) + 1
 
     """ Gets the top n local high scores """
     def localTop(self, n):
-        results = []
         rows = self.cursor.execute('''
             SELECT *
             FROM scores
             ORDER BY points DESC
             LIMIT ?''', (n,))
-        for row in rows:
-            results.append(Score(row[0], row[1], row[2], row[3]))
-        return results
+        return self._getScoresFromRows(rows)
 
     """ Gets the top n global high scores """
     def globalTop(self, n):
@@ -98,6 +93,12 @@ class HighScores:
         global_rank = 0
         assert local_rank != 0 # We just added it so this would indicate a problem
         return local_rank, global_rank
+
+    def _getScoresFromRows(self, rows):
+        scores = []
+        for row in rows:
+            scores.append(Score(row['name'], row['points'], row['level'], row['date']))
+        return scores
 
 # Gobal variable acts as Singleton
 HighScores = HighScores()
