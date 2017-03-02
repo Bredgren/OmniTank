@@ -29,7 +29,7 @@ class dummysound:
     
 def load_sound(file):
     if not pygame.mixer: return dummysound()
-    file = os.path.join('sounds', file)
+    file = os.path.join('snd', file)
     try:
         sound = pygame.mixer.Sound(file)
         return sound
@@ -51,8 +51,8 @@ def pause():
     
 
     # Image
-    pause_file_name = os.path.join('images', 'pause_menu.png')
-    selectionbar_file_name = os.path.join("images","selection_outline.png")
+    pause_file_name = os.path.join('img', 'pause_menu.png')
+    selectionbar_file_name = os.path.join("img","selection_outline.png")
     outline = pygame.image.load(selectionbar_file_name)
 
     # Create background

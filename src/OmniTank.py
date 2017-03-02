@@ -1437,7 +1437,7 @@ class Explosion(pygame.sprite.Sprite):
 #Load Data Functions
 def load_image(file):
     "loads an image, prepares it for play"
-    file = os.path.join('images', file)
+    file = os.path.join('img', file)
     try:
         surface = pygame.image.load(file)
     except pygame.error:
@@ -1447,7 +1447,7 @@ def load_image(file):
 def load_sound(file):
     "loads a sound, prepares it for play"
     #if not pygame.mixer: return dummysound()
-    file = os.path.join('sounds', file)
+    file = os.path.join('snd', file)
     try:
         sound = pygame.mixer.Sound(file)
         return sound

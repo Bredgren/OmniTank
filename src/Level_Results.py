@@ -78,7 +78,7 @@ def report(shots_fired, shots_hit, level_score, jdbr):
     mus_pause = False
     
     # Image
-    report_file_name = os.path.join('images', 'end_level_results.png')
+    report_file_name = os.path.join('img', 'end_level_results.png')
 
     # Create background
     background = pygame.image.load(report_file_name)

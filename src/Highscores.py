@@ -29,7 +29,7 @@ class dummysound:
     
 def load_sound(file):
     if not pygame.mixer: return dummysound()
-    file = os.path.join('sounds', file)
+    file = os.path.join('snd', file)
     try:
         sound = pygame.mixer.Sound(file)
         return sound
@@ -204,9 +204,9 @@ def highscores(score, level):
     mus_pause = False
 
     # Image
-    highscores_file_name = os.path.join('images', 'highscores.png')
-    get_name = os.path.join('images', 'get_name.png')
-    selectionbar_file_name = os.path.join("images","selection_outline.png")
+    highscores_file_name = os.path.join('img', 'highscores.png')
+    get_name = os.path.join('img', 'get_name.png')
+    selectionbar_file_name = os.path.join("img","selection_outline.png")
     outline = pygame.image.load(selectionbar_file_name)
 
     # Create background

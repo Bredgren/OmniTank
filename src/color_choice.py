@@ -30,7 +30,7 @@ class dummysound:
     
 def load_sound(file):
     if not pygame.mixer: return dummysound()
-    file = os.path.join('sounds', file)
+    file = os.path.join('snd', file)
     try:
         sound = pygame.mixer.Sound(file)
         return sound
@@ -59,9 +59,9 @@ def color_choice():
     mus_pause = False
 
     # Image
-    tankcolor_file_name = os.path.join('images', 'tank_color.png')
-    selectionbar_file_name = os.path.join("images","selection_outline.png")
-    selectionbar2_file_name = os.path.join("images","tank_outline.png")
+    tankcolor_file_name = os.path.join('img', 'tank_color.png')
+    selectionbar_file_name = os.path.join("img","selection_outline.png")
+    selectionbar2_file_name = os.path.join("img","tank_outline.png")
     outline = pygame.image.load(selectionbar_file_name)
     outline2 = pygame.image.load(selectionbar2_file_name)
 

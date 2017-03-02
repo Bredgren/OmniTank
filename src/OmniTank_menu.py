@@ -7,7 +7,7 @@ import color_choice, Instructions, Highscores
 
 screen = pygame.display.set_mode((1024, 768))
 clock = pygame.time.Clock()
-mainmenu_file_name = os.path.join("images","main_menu.png")
+mainmenu_file_name = os.path.join("img","main_menu.png")
 background = pygame.image.load(mainmenu_file_name)
 
 class MenuOutline(pygame.sprite.Sprite):
@@ -33,7 +33,7 @@ class dummysound:
     
 def load_sound(file):
     if not pygame.mixer: return dummysound()
-    file = os.path.join('sounds', file)
+    file = os.path.join('snd', file)
     try:
         sound = pygame.mixer.Sound(file)
         return sound
@@ -63,10 +63,10 @@ def menu():
     mus_pause = False
 
     #images
-    selectionbar_file_name = os.path.join("images","selection_outline.png")
+    selectionbar_file_name = os.path.join("img","selection_outline.png")
     outline = pygame.image.load(selectionbar_file_name)
 
-    icon_img = os.path.join("images", "icon.png")
+    icon_img = os.path.join("img", "icon.png")
     icon = pygame.image.load(icon_img)
     pygame.display.set_icon(icon)
 
@@ -78,7 +78,7 @@ def menu():
     click_sound = load_sound('menu_click.wav')
 
     #load/start music
-    pygame.mixer.music.load(os.path.join('sounds', 'Mechanolith.mp3'))
+    pygame.mixer.music.load(os.path.join('snd', 'Mechanolith.mp3'))
     pygame.mixer.music.play(-1)
 
     all = pygame.sprite.RenderUpdates()
