@@ -27,10 +27,10 @@ class MenuOutline(pygame.sprite.Sprite):
                pygame.mouse.get_pos()[1] <= self.y1 and
                pygame.mouse.get_pos()[1] >= self.y2):
             self.kill()
-        
+
 class dummysound:
     def play(self): pass
-    
+
 def load_sound(file):
     if not pygame.mixer: return dummysound()
     file = os.path.join('snd', file)
@@ -110,7 +110,7 @@ def menu():
             playsound = False
         if not (in_box1 or in_box2 or in_box3 or in_box4):
             playsound = True
-            
+
 
         # User Input
         for event in pygame.event.get():
@@ -163,4 +163,3 @@ def menu():
 
 if __name__ == '__main__':
     menu()
-    

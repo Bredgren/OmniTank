@@ -3,14 +3,14 @@
 
 import pygame
 
-class ButtonOutline(pygame.sprite.DirtySprite):
+class Outline(pygame.sprite.DirtySprite):
     """A sprite that is only visible when the mouse is within the given bounds."""
-    def __init__(self, pos, image, bounds, *groups):
+    def __init__(self, name, rect, image, *groups):
         super().__init__(*groups)
-        self.pos = pos
+        self.name = name
+        self.bounds = rect
         self.image = image
-        self.bounds = bounds
-        self.rect = self.image.get_rect(topleft=pos)
+        self.rect = self.image.get_rect(topleft=rect.topleft)
         self.visible = 0
         self.dirty = 1
 
@@ -24,9 +24,9 @@ class ButtonOutline(pygame.sprite.DirtySprite):
         self.visible = 0
         self.dirty = 1
 
-    def update(self):
+    def update(self, mouse_pos):
         """Sets visiblity based on mouse position."""
-        if self.bounds.collidepoint(pygame.mouse.get_pos()):
+        if self.bounds.collidepoint(mouse_pos):
             self.show()
-        else:
+        elif self.visible:
             self.hide()
