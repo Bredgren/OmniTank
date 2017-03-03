@@ -1,21 +1,24 @@
 #!/usr/bin/env python
-
+"""Functions and classes used for the game's main menu. This file can also be run on it's
+own to start the game from the main menu."""
 import button
 import data
+import pygame
 
 def run(display, clock):
+    """Runs the main menu using the given pygame display and clock."""
     pygame.display.set_caption("OmniTank Menu")
     pygame.mouse.set_visible(True)
 
     # images
-    outline = data.loadImage("selection_outline.png")
-    icon = data.loadImage("icon.png")
+    outline = data.load_image("selection_outline.png")
+    icon = data.load_image("icon.png")
     pygame.display.set_icon(icon)
 
     # sounds/music
-    rolloverSound = data.loadSound("menu_rollover.wav")
-    clickSound = load_sound("menu_click.wav")
-    data.loadMusic("Mechanolith.mp3")
+    rolloverSound = data.load_sound("menu_rollover.wav")
+    clickSound = data.load_sound("menu_click.wav")
+    data.load_music("Mechanolith.mp3")
     pygame.mixer.music.play(-1)
 
     top = (367, 311)
@@ -33,11 +36,13 @@ def run(display, clock):
 
     while running:
         time_passed = clock.tick(60)
+        running = False
 
+    print("Bye")
 
 def main():
     import game
-    display, clock = game.initPygame()
+    display, clock = game.init_pygame()
     run(display, clock)
 
 if __name__ == "__main__":

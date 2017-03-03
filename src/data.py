@@ -1,25 +1,23 @@
 #!/usr/bin/env python
+"""Functions for loading image and sound data."""
+import os
+import pygame
 
-imgPath = "img"
-sndPath = "snd"
+IMG_PATH = "img"
+SND_PATH = "snd"
 
-def loadImage(filename):
-    """Loads an image, prepares it for use"""
-    imgFile = os.path.join(imgPath, filename)
-    try:
-        surface = pygame.image.load(imgFile)
-        return surface
-    except pygame.error:
-        raise SystemExit("Could not load image '%s' %s" % (filename, pygame.get_error()))
+def load_image(filename):
+    """Loads an image, prepares it for use."""
+    img_file = os.path.join(IMG_PATH, filename)
+    surface = pygame.image.load(img_file)
+    return surface
 
-def loadSound(filename):
-    """loads a sound, prepares it for play"""
-    sndFile = os.path.join(sndPath, filename)
-    try:
-        sound = pygame.mixer.Sound(sndFile)
-        return sound
-    except pygame.error:
-        raise SystemExit("Could not load sound '%s' %s" % (filename, pygame.get_error()))
+def load_sound(filename):
+    """Loads a sound, prepares it for play."""
+    snd_file = os.path.join(SND_PATH, filename)
+    sound = pygame.mixer.Sound(snd_file)
+    return sound
 
-def loadMusic(filename):
-    pygame.mixer.music.load(os.path.join(sndPath, 'Mechanolith.mp3'))
+def load_music(filename):
+    """Loads a music file."""
+    pygame.mixer.music.load(os.path.join(SND_PATH, filename))
