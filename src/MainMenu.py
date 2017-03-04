@@ -28,6 +28,7 @@ class MainMenu(game.GameState):
         super().__init__(display, clock)
         self.can_play_sound = True
         self.btn_group = pygame.sprite.LayeredDirty()
+        self.music_paused = False
 
     def setup(self):
         super().setup()
@@ -68,10 +69,11 @@ class MainMenu(game.GameState):
                     self.running = False
             elif event.type == KEYDOWN:
                 if event.key == K_m:
-                    if pygame.mixer.music.get_busy():
-                        pygame.mixer.music.pause()
-                    else:
+                    self.music_paused = not self.music_paused
+                    if self.music_paused:
                         pygame.mixer.music.unpause()
+                    else:
+                        pygame.mixer.music.pause()
 
         self.btn_group.clear(self.display, self.img("background"))
         dirty = self.btn_group.draw(self.display)
