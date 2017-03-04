@@ -1,25 +1,21 @@
 #!/usr/bin/env python
-"""Functions and classes used for the game's main menu. This file can also be run on it's
-own to start the game from the main menu."""
+"""Functions and classes used for the game's highscores menu. This file can also be run
+on it's own to start the game from the highscores menu."""
 import time
 import button
-import data
 import game
-from ColorChoice import ColorChoice
-from HighScores import Highscores
-from Instructions import Instructions
 import pygame
 from pygame.locals import ( # pylint: disable=no-name-in-module
     Rect,
     QUIT, MOUSEBUTTONDOWN, KEYDOWN,
     K_m)
 
-class MainMenu(game.GameState):
-    """The class for the main menu of the game."""
-    caption = "OmniTank Menu"
+class Highscores(game.GameState):
+    """The class for the highscores menu of the game."""
+    caption = "OmniTank High Scores"
     img_assets = {
         "icon": "icon.png",
-        "background": "main_menu.png",
+        "background": "highscores.png",
         "outline": "selection_outline.png",
     }
     snd_assets = {
@@ -34,15 +30,10 @@ class MainMenu(game.GameState):
     def setup(self):
         super().setup()
         pygame.mouse.set_visible(True)
-        data.load_music("Mechanolith.mp3")
-        pygame.mixer.music.play(-1)
 
         btn_size = (290, 40)
         outline = self.img("outline")
-        self.btn_group.add(button.Outline("start", Rect((367, 311), btn_size), outline))
-        self.btn_group.add(button.Outline("instructions", Rect((367, 363), btn_size), outline))
-        self.btn_group.add(button.Outline("highscores", Rect((367, 413), btn_size), outline))
-        self.btn_group.add(button.Outline("quit", Rect((367, 465), btn_size), outline))
+        self.btn_group.add(button.Outline("return", Rect((368, 695), btn_size), outline))
 
         self.snd("rollover").set_volume(0.5)
 
@@ -53,16 +44,7 @@ class MainMenu(game.GameState):
             elif event.type == MOUSEBUTTONDOWN and self.hovered_btns:
                 self.snd("click").play()
                 clicked = self.hovered_btns[0]
-                if clicked.name == "start":
-                    color_choice = ColorChoice(self.display, self.clock)
-                    color_choice.run()
-                elif clicked.name == "instructions":
-                    i = Instructions(self.display, self.clock)
-                    i.run()
-                elif clicked.name == "highscores":
-                    highscores = Highscores(self.display, self.clock)
-                    highscores.run()
-                elif clicked.name == "quit":
+                if clicked.name == "return":
                     self.running = False
             elif event.type == KEYDOWN:
                 if event.key == K_m:
@@ -77,10 +59,10 @@ class MainMenu(game.GameState):
         print("Bye")
 
 def main():
-    """Sets up pygame and runs the main menu."""
+    """Sets up pygame and runs the highscores menu."""
     display, clock = game.init_pygame()
-    main_menu = MainMenu(display, clock)
-    main_menu.run()
+    highscores = Highscores(display, clock)
+    highscores.run()
 
 if __name__ == "__main__":
     main()
