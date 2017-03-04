@@ -26,6 +26,8 @@ class GameState(object):
         self.running = False
         self._img = {}
         self._snd = {}
+        self.btn_group = pygame.sprite.LayeredDirty()
+        self.hovered_btns = []
 
     def setup(self):
         """Sets up pygame and loads assets."""
@@ -53,8 +55,23 @@ class GameState(object):
         self.running = True
         while self.running:
             self.clock.tick(self.fps)
+            self._update()
             self.update()
+
+            self.btn_group.clear(self.display, self.img("background"))
+            dirty = self.btn_group.draw(self.display)
+            pygame.display.update(dirty)
+
         self.on_exit()
+
+    def _update(self):
+        old = self.hovered_btns
+        self.btn_group.update(pygame.mouse.get_pos())
+        self.hovered_btns = [btn for btn in self.btn_group if btn.visible]
+
+        # Only play rollover_sound the fist frame a button is hovered over.
+        if self.hovered_btns and not old:
+            self.snd("rollover").play()
 
     def update(self):
         """Process a single game loop."""

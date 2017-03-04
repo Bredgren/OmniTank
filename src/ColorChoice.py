@@ -25,8 +25,6 @@ class ColorChoice(game.GameState):
 
     def __init__(self, display, clock):
         super().__init__(display, clock)
-        self.can_play_sound = True
-        self.btn_group = pygame.sprite.LayeredDirty()
         self.music_paused = False
 
     def setup(self):
@@ -48,17 +46,12 @@ class ColorChoice(game.GameState):
         self.snd("rollover").set_volume(0.5)
 
     def update(self):
-        self.btn_group.update(pygame.mouse.get_pos())
-        hovered_btns = [btn for btn in self.btn_group if btn.visible]
-
-        self._update_btns(hovered_btns)
-
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.running = False
-            elif event.type == MOUSEBUTTONDOWN and hovered_btns:
+            elif event.type == MOUSEBUTTONDOWN and self.hovered_btns:
                 self.snd("click").play()
-                clicked = hovered_btns[0]
+                clicked = self.hovered_btns[0]
                 if clicked.name == "return":
                     self.running = False
                 # else:
@@ -70,18 +63,6 @@ class ColorChoice(game.GameState):
                         pygame.mixer.music.unpause()
                     else:
                         pygame.mixer.music.pause()
-
-        self.btn_group.clear(self.display, self.img("background"))
-        dirty = self.btn_group.draw(self.display)
-        pygame.display.update(dirty)
-
-    def _update_btns(self, hovered_btns):
-        # Only play rollover_sound the fist frame a button is hovered over.
-        if self.can_play_sound and hovered_btns:
-            self.snd("rollover").play()
-            self.can_play_sound = False
-        elif not self.can_play_sound and not hovered_btns:
-            self.can_play_sound = True
 
 def main():
     """Sets up pygame and runs the color choice menu."""
