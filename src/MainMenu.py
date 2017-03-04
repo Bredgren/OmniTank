@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """Functions and classes used for the game's main menu. This file can also be run on it's
 own to start the game from the main menu."""
+import time
 import button
 import data
 import pygame
-from pygame.locals import (QUIT, MOUSEBUTTONDOWN)
-import time
+from pygame.locals import (Rect, QUIT, MOUSEBUTTONDOWN) # pylint: disable=no-name-in-module
 
 def run(display, clock):
     """Runs the main menu using the given pygame display and clock."""
@@ -31,10 +31,10 @@ def run(display, clock):
     btn_group = pygame.sprite.LayeredDirty()
 
     btn_size = (290, 40)
-    btn_group.add(button.Outline("start", pygame.Rect((367, 311), btn_size), outline))
-    btn_group.add(button.Outline("instructions", pygame.Rect((367, 363), btn_size), outline))
-    btn_group.add(button.Outline("highscores", pygame.Rect((367, 413), btn_size), outline))
-    btn_group.add(button.Outline("quit", pygame.Rect((367, 465), btn_size), outline))
+    btn_group.add(button.Outline("start", Rect((367, 311), btn_size), outline))
+    btn_group.add(button.Outline("instructions", Rect((367, 363), btn_size), outline))
+    btn_group.add(button.Outline("highscores", Rect((367, 413), btn_size), outline))
+    btn_group.add(button.Outline("quit", Rect((367, 465), btn_size), outline))
 
     display.blit(background, (0, 0))
     pygame.display.flip()
@@ -76,6 +76,7 @@ def run(display, clock):
     print("Bye")
 
 def main():
+    """Sets up pygame and runs the main menu."""
     import game
     display, clock = game.init_pygame()
     run(display, clock)
