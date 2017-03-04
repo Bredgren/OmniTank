@@ -1,25 +1,22 @@
 #!/usr/bin/env python
-"""Functions and classes used for the game's main menu. This file can also be run on it's
-own to start the game from the main menu."""
-import time
+"""Functions and classes used for the game's color choice menu. This file can also be run on it's
+own to start the game from here."""
 import button
-import data
 import game
-from ColorChoice import ColorChoice
-from Instructions import Instructions
 import pygame
 from pygame.locals import ( # pylint: disable=no-name-in-module
     Rect,
     QUIT, MOUSEBUTTONDOWN, KEYDOWN,
     K_m)
 
-class MainMenu(game.GameState):
-    """The class for the main menu of the game."""
-    caption = "OmniTank Menu"
+class ColorChoice(game.GameState):
+    """The class for the color choice of the game."""
+    caption = "OmniTank Color Choice"
     img_assets = {
         "icon": "icon.png",
-        "background": "main_menu.png",
+        "background": "tank_color.png",
         "outline": "selection_outline.png",
+        "tank_outline": "tank_outline.png",
     }
     snd_assets = {
         "rollover": "menu_rollover.wav",
@@ -35,15 +32,18 @@ class MainMenu(game.GameState):
     def setup(self):
         super().setup()
         pygame.mouse.set_visible(True)
-        data.load_music("Mechanolith.mp3")
-        pygame.mixer.music.play(-1)
 
         btn_size = (290, 40)
+        btn_size2 = (120, 150)
+        y_value = 310
         outline = self.img("outline")
-        self.btn_group.add(button.Outline("start", Rect((367, 311), btn_size), outline))
-        self.btn_group.add(button.Outline("instructions", Rect((367, 363), btn_size), outline))
-        self.btn_group.add(button.Outline("highscores", Rect((367, 413), btn_size), outline))
-        self.btn_group.add(button.Outline("quit", Rect((367, 465), btn_size), outline))
+        outline2 = self.img("tank_outline")
+        self.btn_group.add(button.Outline("return", Rect((634, 526), btn_size), outline))
+        self.btn_group.add(button.Outline("blue", Rect((152, y_value), btn_size2), outline2))
+        self.btn_group.add(button.Outline("red", Rect((302, y_value), btn_size2), outline2))
+        self.btn_group.add(button.Outline("green", Rect((452, y_value), btn_size2), outline2))
+        self.btn_group.add(button.Outline("dark", Rect((602, y_value), btn_size2), outline2))
+        self.btn_group.add(button.Outline("light", Rect((752, y_value), btn_size2), outline2))
 
         self.snd("rollover").set_volume(0.5)
 
@@ -59,16 +59,10 @@ class MainMenu(game.GameState):
             elif event.type == MOUSEBUTTONDOWN and hovered_btns:
                 self.snd("click").play()
                 clicked = hovered_btns[0]
-                if clicked.name == "start":
-                    cc = ColorChoice(self.display, self.clock)
-                    cc.run()
-                elif clicked.name == "instructions":
-                    i = Instructions(self.display, self.clock)
-                    i.run()
-                elif clicked.name == "highscores":
-                    pass
-                elif clicked.name == "quit":
+                if clicked.name == "return":
                     self.running = False
+                # else:
+                #     game(clicked.name)
             elif event.type == KEYDOWN:
                 if event.key == K_m:
                     self.music_paused = not self.music_paused
@@ -89,15 +83,11 @@ class MainMenu(game.GameState):
         elif not self.can_play_sound and not hovered_btns:
             self.can_play_sound = True
 
-    def on_exit(self):
-        time.sleep(0.5)
-        print("Bye")
-
 def main():
-    """Sets up pygame and runs the main menu."""
+    """Sets up pygame and runs the color choice menu."""
     display, clock = game.init_pygame()
-    main_menu = MainMenu(display, clock)
-    main_menu.run()
+    color_choice = ColorChoice(display, clock)
+    color_choice.run()
 
 if __name__ == "__main__":
     main()
