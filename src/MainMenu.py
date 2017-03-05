@@ -6,7 +6,7 @@ import button
 import data
 import game
 from ColorChoice import ColorChoice
-from HighScores import Highscores
+from HighScores import HighScores
 from Instructions import Instructions
 import pygame
 from pygame.locals import ( # pylint: disable=no-name-in-module
@@ -60,7 +60,7 @@ class MainMenu(game.GameState):
                     i = Instructions(self.display, self.clock)
                     i.run()
                 elif clicked.name == "highscores":
-                    highscores = Highscores(self.display, self.clock)
+                    highscores = HighScores(self.display, self.clock)
                     highscores.run()
                 elif clicked.name == "quit":
                     self.running = False

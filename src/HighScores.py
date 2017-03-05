@@ -10,7 +10,7 @@ from pygame.locals import ( # pylint: disable=no-name-in-module
     QUIT, MOUSEBUTTONDOWN, KEYDOWN,
     K_m)
 
-class Highscores(game.GameState):
+class HighScores(game.GameState):
     """The class for the highscores menu of the game."""
     caption = "OmniTank High Scores"
     img_assets = {
@@ -61,7 +61,7 @@ class Highscores(game.GameState):
 def main():
     """Sets up pygame and runs the highscores menu."""
     display, clock = game.init_pygame()
-    highscores = Highscores(display, clock)
+    highscores = HighScores(display, clock)
     highscores.run()
 
 if __name__ == "__main__":
