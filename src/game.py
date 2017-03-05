@@ -62,6 +62,9 @@ class GameState(object):
             dirty = self.btn_group.draw(self.display)
             pygame.display.update(dirty)
 
+            self.draw()
+            pygame.display.flip()
+
         self.on_exit()
 
     def _update(self):
@@ -76,6 +79,10 @@ class GameState(object):
     def update(self):
         """Process a single game loop."""
         raise NotImplementedError("Must implement the update method.")
+
+    def draw(self):
+        """Extra place to draw things after buttons have been drawn."""
+        pass
 
     def on_exit(self):
         """Called right before the run method exits."""
