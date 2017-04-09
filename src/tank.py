@@ -57,20 +57,20 @@ class Tank(pygame.sprite.Sprite): # pylint: disable=too-many-instance-attributes
         raise NotImplementedError()
 
     def update_movement(self):
-        """Updates the tank's speed/direction."""
-        self.speed["x"] += (self.move["right"]  - self.move["left"]) * self.ACCELERATION
+        """Updates the tank's speed/rotation."""
+        self.speed["x"] += (self.move["right"] - self.move["left"]) * self.ACCELERATION
         self.speed["x"] -= self.FRICTION * sign(self.speed["x"])
         self.speed["x"] = clamp(self.speed["x"], -self.SPEED, self.SPEED)
 
-        self.speed["y"] += (self.move["forward"]  - self.move["backward"]) * self.ACCELERATION
+        self.speed["y"] += (self.move["forward"] - self.move["backward"]) * self.ACCELERATION
         self.speed["y"] -= self.FRICTION * sign(self.speed["y"])
         self.speed["y"] = clamp(self.speed["y"], -self.SPEED, self.SPEED)
 
         self.rotation += (self.move["turn_left"] - self.move["turn_right"]) * self.TURN_SPEED
         x, y = self.position
         rad = math.radians(self.rotation)
-        x += (-self.speed["y"] * math.sin(rad)) + (self.speed["x"] * math.sin(rad - (math.pi / 2)))
-        y += (-self.speed["y"] * math.cos(rad)) + (self.speed["x"] * math.cos(rad - (math.pi / 2)))
+        x += self.speed["x"] * math.cos(rad) - self.speed["y"] * math.sin(rad)
+        y += -self.speed["x"] * math.sin(rad) - self.speed["y"] * math.cos(rad)
         self.rotation %= 360
 
         wrap_offset = 50
@@ -79,7 +79,7 @@ class Tank(pygame.sprite.Sprite): # pylint: disable=too-many-instance-attributes
 
         # Move to new position
         self.position = (x, y)
-        self.image = pygame.transform.rotate(self.src_image, self.direction)
+        self.image = pygame.transform.rotate(self.src_image, self.rotation)
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
@@ -109,7 +109,7 @@ class Player(Tank):
 
     def update(self):
         self.update_movement()
-        self.check_for_death()
+        self._check_for_death()
 
     def draw(self, screen):
         pass
@@ -134,7 +134,7 @@ class EnemyTank(Tank):
     def update(self):
         self.ai()
         self.update_movement()
-        self.check_for_death()
+        self._check_for_death()
 
     def control(self):
         """Decides how the tank should move."""
@@ -161,7 +161,7 @@ class EnemyTank(Tank):
         dist_to_player = math.sqrt((player_x - x) ** 2 + (player_y - y) ** 2)
 
         angle = self.angle_to_player()
-        angle_dist = abs(angle - self.direction)
+        angle_dist = abs(angle - self.rotation)
 
         self.move["turn_right"] = False
         if 6 <= angle_dist < 180:
@@ -177,7 +177,7 @@ class EnemyTank(Tank):
     def _omni_movement(self):
         x, y = self.position
         player_x, player_y = self.player.position
-        player_dir = self.player.direction
+        player_dir = self.player.rotation
         dist_to_player = math.sqrt((player_x - x) ** 2 + (player_y - y) ** 2)
 
         # Left/right movement
@@ -200,7 +200,7 @@ class EnemyTank(Tank):
 
         # Turning
         angle = self.angle_to_player()
-        angle_dist = abs(angle - self.direction)
+        angle_dist = abs(angle - self.rotation)
 
         self.move["turn_right"] = ((6 <= angle_dist < 180 and angle <= angle_dist) or
                                    (angle_dist >= 180 and angle > angle_dist))

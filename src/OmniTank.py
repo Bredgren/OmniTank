@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 """The main game."""
 import game
+import tank
 import pygame
 from pygame.locals import ( # pylint: disable=no-name-in-module
-    QUIT, KEYDOWN,
-    K_m)
+    QUIT, KEYDOWN, KEYUP,
+    K_m, K_w, K_a, K_s, K_d, K_l, K_j)
 
 class OmniTank(game.GameState):
     """The class for the game play state."""
@@ -47,15 +48,53 @@ class OmniTank(game.GameState):
         "boss_shot": "boss_shot.wav",
     }
 
+    move_keys = {
+        "forward": K_w,
+        "backward": K_s,
+        "left": K_a,
+        "right": K_d,
+        "turn_right": K_l,
+        "turn_left": K_j,
+    }
+
     def __init__(self, display, clock):
         super().__init__(display, clock)
         self.music_paused = False
+        self.player = None
+        self.group = {}
+        self.background = None
 
     def setup(self):
         super().setup()
         pygame.mouse.set_visible(False)
+        self._setup_images()
+        self.player = tank.Player(self.img("omnitank_blue"), self.display.get_rect())
+        self.player.move_to(self.display.get_rect().center)
+
+        self.group["all"] = pygame.sprite.RenderUpdates()
+        self.group["all"].add(self.player)
+
+    def _setup_images(self):
+        tank.SaucerEnemy.IMAGE = self.img("saucer")
+
+        display_rect = self.display.get_rect()
+        bgdtile = self.img("background")
+        self.background = pygame.Surface(display_rect.size) # pylint: disable=E1121
+        for x in range(0, display_rect.width, bgdtile.get_width()):
+            for y in range(0, display_rect.height, bgdtile.get_height()):
+                self.background.blit(bgdtile, (x, y))
+        self.display.blit(self.background, (0, 0))
 
     def update(self):
+        self._handle_input()
+
+        self.group["all"].clear(self.display, self.background)
+        self.group["all"].update()
+        dirty = self.group["all"].draw(self.display)
+        pygame.display.update(dirty)
+        pygame.display.flip()
+
+    def _handle_input(self):
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.running = False
@@ -66,6 +105,15 @@ class OmniTank(game.GameState):
                         pygame.mixer.music.unpause()
                     else:
                         pygame.mixer.music.pause()
+                for move, key in self.move_keys.items():
+                    if event.key == key:
+                        self.player.move[move] = True
+            elif event.type == KEYUP:
+                for move, key in self.move_keys.items():
+                    if event.key == key:
+                        self.player.move[move] = False
+        # elif event.key == K_p and down:
+        #     pause_result = Pause_Menu.pause()
 
 def main():
     """Sets up pygame and runs the game."""
