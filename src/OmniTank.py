@@ -68,11 +68,16 @@ class OmniTank(game.GameState):
         super().setup()
         pygame.mouse.set_visible(False)
         self._setup_images()
+
         self.player = tank.Player(self.img("omnitank_blue"), self.display.get_rect())
         self.player.move_to(self.display.get_rect().center)
 
         self.group["all"] = pygame.sprite.RenderUpdates()
         self.group["all"].add(self.player)
+
+        s = tank.SaucerEnemy(self.display.get_rect(), self.player, 1)
+        s.move_to(self.display.get_rect().center)
+        self.group["all"].add(s)
 
     def _setup_images(self):
         tank.SaucerEnemy.IMAGE = self.img("saucer")

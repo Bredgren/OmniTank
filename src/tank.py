@@ -16,7 +16,7 @@ class Tank(pygame.sprite.Sprite): # pylint: disable=too-many-instance-attributes
     DAMAGE = 0
     SPEED = 0
     ACCELERATION = 0
-    TURN_SPEED = 0
+    TURN_SPEED = 6
     RELOAD_TIME = 0
 
     FRICTION = 1
@@ -101,7 +101,6 @@ class Player(Tank):
     DAMAGE = 10
     SPEED = 10
     ACCELERATION = 2
-    TURN_SPEED = 6
     RELOAD_TIME = 200
 
     def __init__(self, image, bounds):
@@ -132,7 +131,7 @@ class EnemyTank(Tank):
         return self.BASE_HP + ((int(level) - self.FIRST_LEVEL) * 5)
 
     def update(self):
-        self.ai()
+        self.control()
         self.update_movement()
         self._check_for_death()
 
@@ -202,10 +201,10 @@ class EnemyTank(Tank):
         angle = self.angle_to_player()
         angle_dist = abs(angle - self.rotation)
 
-        self.move["turn_right"] = ((6 <= angle_dist < 180 and angle <= angle_dist) or
-                                   (angle_dist >= 180 and angle > angle_dist))
-        self.move["turn_left"] = ((6 <= angle_dist < 180 or angle_dist >= 180) and
-                                  not self.move["turn_right"])
+        self.move["turn_right"] = ((6 <= angle_dist < 180 and angle <= self.rotation) or
+                                   (angle_dist >= 180 and angle > self.rotation))
+        self.move["turn_left"] = ((6 <= angle_dist < 180 and angle > self.rotation) or
+                                  (angle_dist >= 180 and angle <= self.rotation))
 
 class SaucerEnemy(EnemyTank):
     """The saucer enemy."""
