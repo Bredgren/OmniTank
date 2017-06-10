@@ -1,0 +1,185 @@
+!Data
+icon: "icon.png"
+width: 1024
+height: 768
+target_fps: 60
+music: "Mechanolith.mp3"
+main_menu: !Menu
+  caption: "OmniTank Menu"
+  background: "main_menu.png"
+  buttons:
+    - !TextButton
+      label: "start"
+      pos: 367, 311
+      size: 290, 40
+      action: color_menu
+    - !TextButton
+      label: "instructions"
+      pos: 367, 363
+      size: 290, 40
+      action: instruction_menu
+    - !TextButton
+      label: "highscores"
+      pos: 367, 413
+      size: 290, 40
+      action: highscore_menu
+    - !TextButton
+      label: "quit"
+      pos: 367, 465
+      size: 290, 40
+      action: exit_game
+instruction_menu: !Menu
+  caption: "OmniTank Instructions"
+  background: "instructions.png"
+  buttons:
+    - !TextButton
+      label: "return"
+      pos: 676, 39
+      size: 290, 40
+      action: main_menu
+highscore_menu: !Menu
+  caption: "OmniTank High Scores"
+  background: "highscores.png"
+  buttons:
+    - !TextButton
+      label: "return"
+      pos: 368, 695
+      size: 290, 40
+      action: main_menu
+  scores_file: "highscores.txt"
+  font_color: {r: 89, g: 141, b: 178}
+  font_name: "arial"
+  font_size: 30
+  max_scores: 10
+color_menu: !Menu
+  caption: "OmniTank Color Choice"
+  background: "tank_color.png"
+  buttons:
+    - !TextButton
+      label: "return"
+      pos: 634, 526
+      size: 290, 40
+      action: main_menu
+    - !TextButton
+      label: "start"
+      pos: 512, 700
+      size: 290, 40
+      action: start_game
+    - !ImgButton
+      label: "blue"
+      img: "omnitank_blue.png"
+      pos: 152, 310
+      #size: default to fit contents
+      action: select_blue
+    - !ImgButton
+      label: "reg"
+      img: "omnitank_red.png"
+      pos: 302, 310
+      action: select_red
+    - !ImgButton
+      label: "green"
+      img: "omnitank_green.png"
+      pos: 452, 310
+      action: select_green
+    - !ImgButton
+      label: "dark"
+      img: "omnitank_dark.png"
+      pos: 602, 310
+      action: select_dark
+    - !ImgButton
+      label: "light"
+      img: "omnitank_light.png"
+      pos: 752, 310
+      action: select_light
+game: !Game
+  caption: "OmniTank"
+  background: "grey_background.png"
+  # key_bindings:
+  waves_per_level: 10
+tanks: !Tanks
+  player: !Tank
+    max_hp: 500
+    speed: 10
+    turn_speed: 6
+    acceleration: 2
+    friction: 1
+    damage: 10
+    reload_time: 200
+  enemies:
+    - !Tank
+      img: "saucer_enemy.png"
+      bullet_img: "saucer_bullet.png"
+      level: 1 # The level when it starts appearing
+      base_hp: 30
+      points: 10
+      speed: 5
+      turn_speed: 6
+      acceleration: 2
+      friction: 1
+      damage: 5
+      reload_time: 1500
+      behavior: omni_movement
+    - !Tank
+      img: "triangle_enemy.png"
+      bullet_img: "triangle_bullet.png"
+      level: 2
+      base_hp: 10
+      points: 20
+      speed: 3
+      turn_speed: 6
+      acceleration: 2
+      friction: 1
+      damage: 10
+      reload_time: 1500
+      behavior: basic_movement
+    - !Tank
+      img: "tank_enemy.png"
+      bullet_img: "tank_bullet.png"
+      level: 3
+      base_hp: 50
+      points: 50
+      speed: 1
+      turn_speed: 4
+      acceleration: 2
+      friction: 1
+      damage: 20
+      reload_time: 5000
+      behavior: basic_movement
+    - !Tank
+      img: "mine_enemy.png"
+      bullet_img: "mine.png"
+      level: 4
+      base_hp: 40
+      points: 30
+      speed: 4
+      turn_speed: 6
+      acceleration: 2
+      friction: 1
+      damage: 50
+      reload_time: 3000
+      behavior: circle_movement
+    - !Tank
+      img: "trishot_enemy.png"
+      bullet_img: "trishot_bullet.png"
+      level: 5
+      base_hp: 40
+      points: 60
+      speed: 3
+      turn_speed: 6
+      acceleration: 2
+      friction: 1
+      damage: 20
+      reload_time: 2000
+      behavior: basic_movement
+  boss: !Tank
+    img: "boss_enemy.png"
+    bullet_img: "boss_bullet.png"
+    base_hp: 70
+    points: 200
+    speed: 15
+    turn_speed: 6
+    acceleration: 2
+    friction: 1
+    damage: 10
+    reload_time: 1000
+    behavior: omni_movement

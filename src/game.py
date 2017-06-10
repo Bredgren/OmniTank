@@ -3,13 +3,12 @@
 import data
 import pygame
 
-WIDTH = 1024
-HEIGHT = 768
+CONFIG = data.parse_data_file("data.yaml")
 
 def init_pygame():
     """Sets up pygame. Returns the main display and the clock."""
     pygame.init() # pylint: disable=no-member
-    display = pygame.display.set_mode((WIDTH, HEIGHT))
+    display = pygame.display.set_mode((CONFIG.width, CONFIG.height))
     clock = pygame.time.Clock()
     return display, clock
 
@@ -17,7 +16,7 @@ class GameState(object):
     """Represents a single state of the game."""
     caption = "OmniTank"
     icon = "icon.png"
-    fps = 60
+    fps = CONFIG.target_fps
     img_assets = {}
     snd_assets = {}
     def __init__(self, display, clock):

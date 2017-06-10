@@ -18,7 +18,6 @@ class MainMenu(game.GameState):
     """The class for the main menu of the game."""
     caption = "OmniTank Menu"
     img_assets = {
-        "icon": "icon.png",
         "background": "main_menu.png",
         "outline": "selection_outline.png",
     }
@@ -34,7 +33,7 @@ class MainMenu(game.GameState):
     def setup(self):
         super().setup()
         pygame.mouse.set_visible(True)
-        data.load_music("Mechanolith.mp3")
+        data.load_music(game.CONFIG.music)
         pygame.mixer.music.play(-1)
 
         btn_size = (290, 40)
@@ -43,6 +42,11 @@ class MainMenu(game.GameState):
         self.btn_group.add(button.Outline("instructions", Rect((367, 363), btn_size), outline))
         self.btn_group.add(button.Outline("highscores", Rect((367, 413), btn_size), outline))
         self.btn_group.add(button.Outline("quit", Rect((367, 465), btn_size), outline))
+
+        # maker = button.Maker()
+        # for btn_cfg in game.CONFIG.main_menu.buttons:
+        #     btn = maker.make_button(btn_cfg)
+        #     self.btn_group.add(btn)
 
         self.snd("rollover").set_volume(0.5)
 
