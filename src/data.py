@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """Functions for loading image and sound data."""
 import os
-import pygame
-import yaml
 import re
 from collections import namedtuple
+import pygame
+import yaml
 
 IMG_PATH = "img"
 SND_PATH = "snd"
@@ -26,9 +26,11 @@ def load_music(filename):
     pygame.mixer.music.load(os.path.join(SND_PATH, filename))
 
 class SafeYaml(yaml.YAMLObject):
+    """Class for using safe YAML loader."""
     yaml_loader = yaml.SafeLoader
 
 class Data(SafeYaml):
+    """Top level holder for everything in data.yaml."""
     yaml_tag = u"!Data"
     def __repr__(self):
         attrs = ["%s=%r" % (attr, getattr(self, attr)) for attr in
@@ -38,31 +40,40 @@ class Data(SafeYaml):
         return "Data(%s)" % ", ".join(attrs)
 
 class Menu(SafeYaml):
+    """Config for a menu."""
     yaml_tag = u"!Menu"
 
 class TextButton(SafeYaml):
+    """Config for a button that has text."""
     yaml_tag = u"!TextButton"
 
     def make_button(self, maker):
+        """Uses the given button maker to make an actual text button."""
         maker.make_text_button(self)
 
 class ImgButton(SafeYaml):
+    """Confit for a button that used image(s)."""
     yaml_tag = u"!ImgButton"
 
     def make_button(self, maker):
+        """Uses the given button maker to make an actual image button."""
         maker.make_img_button(self)
 
 class Game(SafeYaml):
+    """Config for the main game state."""
     yaml_tag = u"!Game"
 
 class Tanks(SafeYaml):
+    """Holder for all tank info."""
     yaml_tag = u"!Tanks"
 
 class Tank(SafeYaml):
+    """Config for a single tank."""
     yaml_tag = u"!Tank"
 
 Vec = namedtuple("Vec", "x, y")
 def pos_constructor(loader, node):
+    """Interprets two nubmers separated by a comma and a space as a vector."""
     value = loader.construct_scalar(node)
     x, y = map(float, value.split(", "))
     return Vec(x, y)
@@ -77,9 +88,9 @@ def parse_data_file(filename):
         yaml_data = yaml.safe_load(contents)
     return yaml_data
 
-if __name__ == "__main__":
-    parsed = parse_data_file("data.yaml")
-    print parsed
-    print parsed.width, parsed.height
-    print parsed.tanks.player.max_hp
-    print parsed.tanks.enemies
+# if __name__ == "__main__":
+#     parsed = parse_data_file("data.yaml")
+#     print(parsed)
+#     print(parsed.width, parsed.height)
+#     print(parsed.tanks.player.max_hp)
+#     print(parsed.tanks.enemies)
